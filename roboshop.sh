@@ -9,7 +9,7 @@ do
    --image-id $AMI_ID \
    --instance-type t3.micro \
    --security-group-ids $SG_ID \
-   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" \
+   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=mango}]" \
    --query 'instances[0].Instanceid[]' \  
    --output text )  
 done
