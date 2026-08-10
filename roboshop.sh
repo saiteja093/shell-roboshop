@@ -8,11 +8,10 @@ do
    INSTANCE_ID=$( aws ec2 run-instances \
    --image-id $AMI_ID \
    --instance-type t3.micro \
-   --security-group-ids $SG_ID \
-   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]' \
+   --security-group-ids $SG_ID --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=mongo}]' \
    --query 'instances[0].Instanceid[]' \  
    --output text )  
- if [ $instance == "frontend" ]; then 
+ if [ "$instance" == "frontend" ]; then 
    IP=$(
       aws ec2 describe-instances \  
       --instance-ids $INSTANCE_ID \  
