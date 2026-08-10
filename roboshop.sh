@@ -31,10 +31,9 @@ do
     --output text) 
     RECORD_NAME="$INSTANCE.$DOMAIN_NAME # mango.daws88a.online
   fi 
-  
-  $ aws route53 change-resource-record-sets \
-  --hosted-zone-id $ZONE_ID \
-  --change-batch '
+    aws route53 change-resource-record-sets \
+    --hosted-zone-id $ZONE_ID \
+    --change-batch '
   {
     "Comment": "Update frontend record",
     "Changes": [
