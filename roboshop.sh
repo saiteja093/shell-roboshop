@@ -2,7 +2,7 @@
 
 SG_ID="sg-0cbd61e0717109130"  
 AMI_ID="ami-0220d79f3f480ecf5" 
-ZONE_ID="Z02925721AYKY0N0DT9IV"
+ZONE_ID="Z02925721AYKY0N0DT9IV"  
 DOMAIN_NAME="daws88a.online"
 
 
@@ -35,7 +35,7 @@ do
     --hosted-zone-id $ZONE_ID \
     --change-batch '
   {
-    "Comment": "Update frontend record",
+    "Comment": "Update frontend record",         
     "Changes": [
       {
         "Action": "UPSERT",
