@@ -21,7 +21,7 @@ do
     --instance-ids $INSTANCE_ID \
     --query "Reservations[].Instances[].PublicIpAddress" \
     --output text)
-    RECORD_NAME="$DOMAIN_NAME."  # daws88a.online
+    RECORD_NAME="$DOMAIN_NAME"  # daws88a.online
     
     else
     
@@ -29,7 +29,7 @@ do
     --instance-ids $INSTANCE_ID \
     --query "Reservations[].Instances[].PrivateIpAddress" \
     --output text) 
-    RECORD_NAME="$INSTANCE.$DOMAIN_NAME." # mango.daws88a.online
+    RECORD_NAME="$INSTANCE.$DOMAIN_NAME" # mango.daws88a.online
   fi 
     aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \
