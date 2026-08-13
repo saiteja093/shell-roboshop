@@ -45,7 +45,7 @@ do
           "TTL": 1,
           "ResourceRecords": [
             {
-              "Value": "198.51.100.42"
+              "Value": "'$IP'"
             }
           ]
         }
