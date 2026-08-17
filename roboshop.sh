@@ -29,7 +29,7 @@ do
     --instance-ids $INSTANCE_ID \
     --query 'Reservations[].Instances[].PrivateIpAddress' \
     --output text) 
-    RECORD_NAME="$INSTANCE.$DOMAIN_NAME" # mango.daws88a.online
+    RECORD_NAME="$instance.$DOMAIN_NAME" # mango.daws88a.online
   fi 
       
       echo "IP address is: $IP"
