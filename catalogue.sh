@@ -53,13 +53,13 @@ validate $? "downloading code"
 cd /app 
 validate $? "moving to app"
 
-unzip -n /tmp/catalogue.zip
+unzip -n /tmp/catalogue.zip &>>logs_file
 validate $? "unziping catalouge in app directory"
 
 npm install 
 validate $? "installing dependences"
 
-cp catalogue.service /etc/systemd/system/
+cp catalogue.service /etc/systemd/system/catalouge.service
 validate $? "created systemctl serivces"
 
 systemctl daemon-reload
