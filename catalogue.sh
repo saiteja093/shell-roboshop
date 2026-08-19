@@ -53,7 +53,7 @@ validate $? "downloading code"
 cd /app 
 validate $? "moving to app"
 
-unzip - n /tmp/catalogue.zip
+unzip -n /tmp/catalogue.zip
 validate $? "unziping catalouge in app directory"
 
 npm install 
