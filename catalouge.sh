@@ -26,18 +26,18 @@ validate()
     fi        
 }
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>>logs_file
 validate $? "disabling current version"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>>logs_file
 validate $? "enabeling 20 version"
 
-dnf install nodejs -y
+dnf install nodejs -y &>>logs_file
 validate $? "installing nodejs"
 
-id roboshop
+id roboshop &>>logs_file
 if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>logs_file
     validate $? "creating system user"
 else
 
@@ -47,7 +47,7 @@ fi
 mkdir -p /app 
 validate $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>logs_file
 validate $? "downloading code"
 
 cd /app 
