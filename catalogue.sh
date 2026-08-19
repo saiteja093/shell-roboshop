@@ -59,13 +59,13 @@ validate $? "unziping catalouge in app directory"
 npm install 
 validate $? "installing dependences"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp catalogue.service /etc/systemd/system/
 validate $? "created systemctl serivces"
 
 systemctl daemon-reload
 systemctl enable catalogue 
 systemctl start catalogue
-validate $? "starting and enabeling catalouge"
+validate $? "starting and enabeling catalogue"
 
 
 
