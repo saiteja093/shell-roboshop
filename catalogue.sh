@@ -7,6 +7,7 @@ r="\e[31m"
 g="\e[32m"
 y="\e[33m"
 n="\e[0m"
+script_dir=$pwd
 
 if [ $userid -ne 0 ]; then
    echo -e "$r please run this script with root user access $n" | tee -a $logs_file
@@ -53,13 +54,16 @@ validate $? "downloading code"
 cd /app 
 validate $? "moving to app"
 
+rm -rf /app/*
+validate $? "removing existed contant"
+
 unzip -n /tmp/catalogue.zip &>>logs_file
 validate $? "unziping catalouge in app directory"
 
 npm install 
 validate $? "installing dependences"
 
-cp catalogue.service /etc/systemd/system/catalouge.service
+cp $script_dir/catalogue.service /etc/systemd/system/catalouge.service
 validate $? "created systemctl serivces"
 
 systemctl daemon-reload
