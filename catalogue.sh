@@ -8,6 +8,7 @@ g="\e[32m"
 y="\e[33m"
 n="\e[0m"
 script_dir=$PWD
+MONGODB_host=mongodb.daws88a.online
 
 if [ $userid -ne 0 ]; then
    echo -e "$r please run this script with root user access $n" | tee -a $logs_file
@@ -74,6 +75,6 @@ validate $? "starting and enabeling catalogue"
 cp $script_dir/mongo.repo /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y
 
-mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js
+mongosh --host $MONGODB_host </app/db/master-data.js
 validate $? ""
 
