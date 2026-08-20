@@ -60,14 +60,14 @@ validate $? "removing existed contant"
 unzip -n /tmp/catalogue.zip &>>logs_file
 validate $? "unziping catalouge in app directory"
 
-npm install 
+npm install &>>logs_file
 validate $? "installing dependences"
 
-cp $script_dir/catalogue.service /etc/systemd/system/catalouge.service
+cp $script_dir/catalogue.service /etc/systemd/system/catalogue.service
 validate $? "created systemctl serivces"
 
 systemctl daemon-reload
-systemctl enable catalogue 
+systemctl enable catalogue &>>logs_file
 systemctl start catalogue
 validate $? "starting and enabeling catalogue"
 
