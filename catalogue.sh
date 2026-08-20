@@ -7,7 +7,7 @@ r="\e[31m"
 g="\e[32m"
 y="\e[33m"
 n="\e[0m"
-script_dir=$pwd
+script_dir=$PWD
 
 if [ $userid -ne 0 ]; then
    echo -e "$r please run this script with root user access $n" | tee -a $logs_file
@@ -63,7 +63,7 @@ validate $? "unziping catalouge in app directory"
 npm install &>>logs_file
 validate $? "installing dependences"
 
-sudo cp $script_dir/catalogue.service /etc/systemd/system/catalogue.service
+cp $script_dir/catalogue.service /etc/systemd/system/catalogue.service
 validate $? "created systemctl serivces"
 
 systemctl daemon-reload
@@ -71,5 +71,9 @@ systemctl enable catalogue &>>logs_file
 systemctl start catalogue
 validate $? "starting and enabeling catalogue"
 
+cp $script_dir/mongo.repo /etc/yum.repos.d/mongo.repo
+dnf install mongodb-mongosh -y
 
+mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js
+validate $? ""
 
