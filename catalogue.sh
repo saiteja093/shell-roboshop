@@ -63,7 +63,7 @@ validate $? "unziping catalouge in app directory"
 npm install &>>logs_file
 validate $? "installing dependences"
 
-cp $script_dir/catalogue.service/etc/systemd/system/catalogue.service
+cp $script_dir/catalogue.service /etc/systemd/system/catalogue.service
 validate $? "created systemctl serivces"
 
 systemctl daemon-reload
