@@ -75,6 +75,13 @@ validate $? "starting and enabeling catalogue"
 cp $script_dir/mongo.repo /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y
 
-mongosh --host $MONGODB_host </app/db/master-data.js
-validate $? ""
+index=$(mongosh --host $MONGODB_host --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+if [ $index -le 0]; then 
+    mongosh --host $MONGODB_host </app/db/master-data.js
+    validate $? "loding products"
+else
+    echo -e "products alredy loded .... $r skipping $n"
+fi
 
+systemctl restart catalogue
+validate $? "restating catalogue"
