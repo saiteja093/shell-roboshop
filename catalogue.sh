@@ -76,7 +76,8 @@ cp $script_dir/mongo.repo /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y
 
 index=$(mongosh --host $MONGODB_host --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
-if [ $index -le 0]; then 
+
+if [ $index -le 0 ]; then 
     mongosh --host $MONGODB_host </app/db/master-data.js
     validate $? "loding products"
 else
