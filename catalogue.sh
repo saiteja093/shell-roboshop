@@ -69,16 +69,16 @@ validate $? "created systemctl serivces"
 
 systemctl daemon-reload
 systemctl enable catalogue &>>logs_file
-systemctl start catalogue
+systemctl start catalogue &>>logs_file
 validate $? "starting and enabeling catalogue"
 
 cp $script_dir/mongo.repo /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y
 
-index=$(mongosh --host $MONGODB_host --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+index=$(mongosh --host $MONGODB_host --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")') &>>logs_file
 
 if [ $index -le 0 ]; then 
-    mongosh --host $MONGODB_host </app/db/master-data.js
+    mongosh --host $MONGODB_host </app/db/master-data.js &>>logs_file
     validate $? "loding products"
 else
     echo -e "products alredy loded .... $r skipping $n"
