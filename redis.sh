@@ -7,8 +7,6 @@ r="\e[31m"
 g="\e[32m"
 y="\e[33m"
 n="\e[0m"
-script_dir=$PWD
-MONGODB_host=mongodb.daws88a.online
 
 if [ $userid -ne 0 ]; then
    echo -e "$r please run this script with root user access $n" | tee -a $logs_file
