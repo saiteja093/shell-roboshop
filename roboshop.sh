@@ -32,7 +32,7 @@ do
     RECORD_NAME="$instance.$DOMAIN_NAME" # mango.daws88a.online
   fi 
       
-      echo "IP address is: $IP"
+      echo "Private IPv4 addresses: $IP"
       
     aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \

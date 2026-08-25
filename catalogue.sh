@@ -86,3 +86,8 @@ fi
 
 systemctl restart catalogue
 validate $? "restating catalogue"
+
+
+
+
+
