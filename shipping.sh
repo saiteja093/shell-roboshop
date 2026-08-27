@@ -54,12 +54,12 @@ VALIDATE $? "Uzip shipping code"
 
 cd /app 
 mvn clean package &>>$LOGS_FILE
-validate $? "installing and building shipping"
+VALIDATE $? "installing and building shipping"
 
 mv target/shipping-1.0.jar shipping.jar 
-validate $? "moving and renaming"
+VALIDATE $? "moving and renaming"
 
-p $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
+$SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
 VALIDATE $? "Created systemctl service"
 
 dnf install mysql -y  &>>$LOGS_FILE
