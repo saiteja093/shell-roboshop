@@ -8,7 +8,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 SCRIPT_DIR=$PWD
-MONGODB_HOST=mongodb.daws88s.online
+MYSQL_HOST=mysql.daws88s.online
 
 if [ $USERID -ne 0 ]; then
     echo -e "$R Please run this script with root user access $N" | tee -a $LOGS_FILE
@@ -27,7 +27,7 @@ VALIDATE(){
 }
 
 dnf install maven -y
-validate $? "installing maven"
+VALIDATE $? "installing maven"
 
 id roboshop &>>$LOGS_FILE
 if [ $? -ne 0 ]; then
@@ -40,18 +40,42 @@ fi
 mkdir -p /app 
 VALIDATE $? "Creating app directory"
 
-curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip  &>>$LOGS_FILE
+curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$LOGS_FILE
 VALIDATE $? "Downloading shipping code"
 
 cd /app
 VALIDATE $? "Moving to app directory"
 
-rm -rf /app/*
+rm -rf /app/* &>>$LOGS_FILE
 VALIDATE $? "Removing existing code"
 
 unzip /tmp/shipping.zip &>>$LOGS_FILE
 VALIDATE $? "Uzip shipping code"
 
 cd /app 
-mvn clean package 
+mvn clean package &>>$LOGS_FILE
+validate $? "installing and building shipping"
+
 mv target/shipping-1.0.jar shipping.jar 
+validate $? "moving and renaming"
+
+p $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
+VALIDATE $? "Created systemctl service"
+
+dnf install mysql -y  &>>$LOGS_FILE
+VALIDATE $? "Installing MySQL"
+
+mysql -h $MYSQL_HOST -uroot -pRoboShop@1 -e 'use cities'
+if [ $? -ne 0 ]; then
+
+    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOGS_FILE
+    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOGS_FILE
+    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOGS_FILE
+    VALIDATE $? "Loaded data into MySQL"
+else
+    echo -e "data is already loaded ... $Y SKIPPING $N"
+fi
+
+systemctl enable shipping &>>$LOGS_FILE
+systemctl start shipping
+VALIDATE $? "Enabled and started shipping"
