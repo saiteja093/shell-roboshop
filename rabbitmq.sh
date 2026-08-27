@@ -26,16 +26,16 @@ validate(){
     fi
 }
 
-cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$LOGS_FILE
 validate $? "adding rabbitmq repo"
 
-dnf install rabbitmq-server -y
+dnf install rabbitmq-server -y &>>$LOGS_FILE
 validate $? "installing raabbitmq"
 
-systemctl enable rabbitmq-server
-systemctl start rabbitmq-server
+systemctl enable rabbitmq-server &>>$LOGS_FILE
+systemctl start rabbitmq-server &>>$LOGS_FILE
 validate $? "enable and statting rabbitmq"
 
-rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl add_user roboshop roboshop123 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 validate $? "created users and given permisssions"
