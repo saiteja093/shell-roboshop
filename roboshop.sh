@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# making some changes
-
 SG_ID="sg-0cbd61e0717109130"  
 AMI_ID="ami-0220d79f3f480ecf5" 
 ZONE_ID="Z02925721AYKY0N0DT9IV"  
