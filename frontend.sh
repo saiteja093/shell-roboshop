@@ -43,10 +43,10 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip
 validate $? "downloaded and unzipped forntend"
 
-rf -rf /etc/nginx/nginx.conf
+rm -rf /etc/nginx/nginx.conf
 
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
 validate $? "copied our nginx conf file"
 
 systemctl restart nginx 
-validate $? "restarted nbinx"
+validate $? "restarted nginx"
