@@ -14,7 +14,7 @@ do
     --security-group-ids $SG_ID \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
     --query "Instances[0].InstanceId" \
-    --output text )
+    --output text)
 
   if [ $instance == "frontend" ]; then 
       IP=$(aws ec2 describe-instances \
@@ -34,9 +34,9 @@ do
       
       echo "Private IPv4 addresses: $IP"
       
-    aws route53 change-resource-record-sets \
-    --hosted-zone-id $ZONE_ID \
-    --change-batch '
+     aws route53 change-resource-record-sets \
+     --hosted-zone-id $ZONE_ID \
+     --change-batch '
   {
     "Comment": "Update frontend record",         
     "Changes": [
