@@ -26,7 +26,7 @@ VALIDATE(){
     fi
 }
 
-dnf install maven -y
+dnf install maven -y &>>$LOGS_FILE
 VALIDATE $? "installing maven"
 
 id roboshop &>>$LOGS_FILE
