@@ -60,6 +60,7 @@ mv target/shipping-1.0.jar shipping.jar
 VALIDATE $? "moving and renaming"
 
 CP $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
 VALIDATE $? "Created systemctl service"
 
 dnf install mysql -y  &>>$LOGS_FILE
